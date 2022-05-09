@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
         focalPoint = GameObject.Find("Focal Point");
     }
 
+   
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +31,12 @@ public class PlayerController : MonoBehaviour
         playerRb.AddForce(force.normalized * speed);
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+
+        if (transform.position.y < -10)
+        {
+            //Quit the game
+            Application.Quit();
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -44,7 +51,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator PowerupCountdownRoutine() {
         yield return new WaitForSeconds(7);
         hasPowerup=false;
-        powerupIndicator.SetActive(true);
+        powerupIndicator.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision) {
